@@ -1,19 +1,21 @@
 {
-  "name": "http-server",
+  "name": "@repo/zodsc",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "exports": {
+    "./types": "./src/types.ts"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@repo/typescript-config": "workspace:*"
   },
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "@types/express": "^5.0.5",
-    "express": "^5.1.0"
+    "zod": "^4.1.13"
   }
 }

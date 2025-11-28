@@ -24,7 +24,7 @@ export const CreateUserSchema = z.object({
         .trim()
 });
 
-export const SigninSchema = z.object({
+export const SignInSchema = z.object({
     username: z
         .string()
         .min(3)

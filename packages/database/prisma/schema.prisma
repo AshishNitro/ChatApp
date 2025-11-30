@@ -15,30 +15,30 @@ datasource db {
 
 
 model User {
-  id            String     @id @default(uuid())
-  email         String     @unique
-  password      String
-  name          String
-  photo         String?
-  rooms         Room[]
-  chats         Chat[]
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  password String
+  name     String
+  photo    String?
+  rooms    Room[]
+  chats    Chat[]
 }
 
 model Room {
-  id          Int       @id @default(autoincrement())
-  slug        String    @unique
-  createdAt   DateTime  @default(now())
-  adminId     String
-  admin       User      @relation(fields: [adminId], references: [id])
-  chats       Chat[]
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  adminId   String    @db.ObjectId
+  admin     User      @relation(fields: [adminId], references: [id])
+  chats     Chat[]
 }
 
 model Chat {
-  id        Int       @id  @default(autoincrement())
-  roomId    Int
-  message   String
-  userId    String
-  room      Room      @relation(fields: [roomId], references: [id])
-  user      User      @relation(fields: [userId], references: [id])
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  roomId  String @db.ObjectId
+  message String
+  userId  String @db.ObjectId
+  room    Room   @relation(fields: [roomId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
 }
 

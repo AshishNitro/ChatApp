@@ -10,7 +10,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@repo/sigin":"workspace:*"
   },
   "dependencies": {
     "@repo/database": "workspace:*",

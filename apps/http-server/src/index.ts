@@ -114,10 +114,7 @@ app.post("/room", middleware, async (req, res)=>{
 
 
 app.get("/chats/:roomId", (req, res) =>{
-    try{
-        const roomId = Number(req.params.roomId);
-        console.log(roomId.params.roomId);
-    }
+    
 
 })
 

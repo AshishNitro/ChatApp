@@ -1,11 +1,16 @@
 import {WebSocketServer} from 'ws';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { JWT_SECRET } from '@repo/sigin/config';
+import { PrismaClient } from '@repo/database/client';   
+
 
 const wss = new WebSocketServer({port: 8080});
 
+interface User{
+    ws: WebSocket,
+    rooms: string[],
+    userId: string
+}
+const user: User[] = [];
 
-wss.on("connection", function connection(ws){
-    ws.on("message", function message(data){
-        ws.send("Hello From Ashish ws")
-    });
-})
-    
+

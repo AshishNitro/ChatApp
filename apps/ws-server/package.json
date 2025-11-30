@@ -9,11 +9,18 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@repo/sigin":"workspace:*"
   },
   "description": "",
   "dependencies": {
     "@types/ws": "^8.18.1",
-    "ws": "^8.18.3"
+    "ws": "^8.18.3",
+    "@repo/database": "workspace:*",
+    "@repo/zodsc": "workspace:*",
+    
+    "@types/jsonwebtoken": "^9.0.10",
+   
+    "jsonwebtoken": "^9.0.2"
   }
 }

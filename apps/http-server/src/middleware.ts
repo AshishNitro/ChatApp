@@ -10,21 +10,29 @@ import {JWT_SECRET} from "@repo/sigin/config";
 
 
 export function middleware(req: Request, res: Response, next: NextFunction){
-    const token = req.headers["authorization"] ?? "";
+    const authHeader = req.headers["authorization"] ?? "";
+    
+    // Extract token from "Bearer <token>" format
+    const token = authHeader.startsWith("Bearer ") 
+        ? authHeader.substring(7) 
+        : authHeader;
 
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET) as any;
 
-    const decoded = jwt.verify(token, JWT_SECRET);
-
-    if(decoded){
-        // @ts-ignore will do it later 
-        req.userId = decoded.userId;
-        next();
-
-    }else{
+        if(decoded && decoded.userId){
+            // @ts-ignore will do it later 
+            req.userId = decoded.userId;
+            next();
+        } else {
+            res.status(403).json({
+                message: "Unauthorized"
+            })
+        }
+    } catch(error) {
         res.status(403).json({
-            message: "Unauthorized"
+            message: "Invalid token"
         })
     }
-
 }
 

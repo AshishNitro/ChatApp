@@ -52,7 +52,7 @@ export default function SignUpPage() {
             <input
               id="name"
               type="text"
-              className="px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+              className="px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:border-red-500 dark:focus:border-pink-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-pink-900 transition-all duration-200"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
@@ -67,7 +67,7 @@ export default function SignUpPage() {
             <input
               id="username"
               type="text"
-              className="px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+              className="px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:border-red-500 dark:focus:border-pink-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-pink-900 transition-all duration-200"
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               required
@@ -82,7 +82,7 @@ export default function SignUpPage() {
             <input
               id="password"
               type="password"
-              className="px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition-colors"
+              className="px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus:outline-none focus:border-red-500 dark:focus:border-pink-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-pink-900 transition-all duration-200"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               required

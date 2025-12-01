@@ -99,7 +99,7 @@ class ApiClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': token || '',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -121,7 +121,7 @@ class ApiClient {
       const token = this.getToken();
       const response = await fetch(`${this.baseUrl}/chats/${roomId}`, {
         headers: {
-          'Authorization': token || '',
+          'Authorization': `Bearer ${token}`,
         },
       });
 
@@ -142,7 +142,7 @@ class ApiClient {
       const token = this.getToken();
       const response = await fetch(`${this.baseUrl}/room/${slug}`, {
         headers: {
-          'Authorization': token || '',
+          'Authorization': `Bearer ${token}`,
         },
       });
 

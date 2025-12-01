@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { middleware } from "./middleware";  
 import jwt from "jsonwebtoken";
 import { CreateUserSchema, SignInSchema, CreateRoomSchema } from "@repo/zodsc/types";
@@ -7,6 +8,7 @@ import { JWT_SECRET } from "@repo/sigin/config";
 
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 
@@ -31,8 +33,15 @@ app.post("/signup", async (req, res)=>{
                 password: parsedData.data.password,
             }
         })
+        
+        const token = jwt.sign({
+            userId: user.id
+        }, JWT_SECRET);
+        
         res.json({
-            userId: user.id})
+            userId: user.id,
+            token
+        })
 
     } catch(err){
         res.status(411).json({
@@ -45,7 +54,7 @@ app.post("/signup", async (req, res)=>{
     
 })
 
-app.post("/signin", (req , res)=>{
+app.post("/signin", async (req , res)=>{
 
 
     const parsedData = SignInSchema.safeParse(req.body);
@@ -56,7 +65,7 @@ app.post("/signin", (req , res)=>{
         return;
 
     }
-    const user = prismaClient.user.findFirst({
+    const user = await prismaClient.user.findFirst({
         where:{
             email: parsedData.data.username,
             password: parsedData.data.password
@@ -71,9 +80,10 @@ app.post("/signin", (req , res)=>{
     }
 
     const token = jwt.sign({
-        userId:user?.id
+        userId: user.id
     }, JWT_SECRET);
     res.json({
+        userId: user.id,
         token
     }) 
 
@@ -91,14 +101,19 @@ app.post("/room", middleware, async (req, res)=>{
 
     const userId = (req as any).userId;
     try{
+    // Generate slug from room name
+    const slug = parsedData.data.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '-' + Date.now();
+    
     const room = await prismaClient.room.create({
         data:{
             name: parsedData.data.name,
+            slug: slug,
             adminId: userId
         }
     })
     res.json({
-        roomId: room.id
+        roomId: room.id,
+        slug: room.slug
 
     })
 
@@ -115,26 +130,22 @@ app.post("/room", middleware, async (req, res)=>{
 
 app.get("/chats/:roomId", async (req, res) => {
     try {
-        const roomId = Number(req.params.roomId);
+        const roomId = req.params.roomId;
         console.log(req.params.roomId);
         const messages = await prismaClient.chat.findMany({
             where: {
                 roomId: roomId
             },
             orderBy: {
-                id: "desc"
+                id: "asc"
             },
             take: 1000
         });
 
-        res.json({
-            messages
-        })
+        res.json(messages)
     } catch(e) {
         console.log(e);
-        res.json({
-            messages: []
-        })
+        res.json([])
     }
     
 })
@@ -147,9 +158,14 @@ app.get("/room/:slug", async (req, res) => {
         }
     });
 
-    res.json({
-        room
-    })
+    if (!room) {
+        res.status(404).json({
+            message: "Room not found"
+        })
+        return;
+    }
+
+    res.json(room)
 })
 
 

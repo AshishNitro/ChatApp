@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx watch src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -10,14 +11,17 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@repo/sigin": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@repo/sigin":"workspace:*"
+    "tsx": "^4.19.2"
   },
   "dependencies": {
     "@repo/database": "workspace:*",
     "@repo/zodsc": "workspace:*",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2"
   }
